@@ -1,0 +1,100 @@
+-- Val Private SS GUI
+local Player = game.Players.LocalPlayer
+local PlayerGui = Player:WaitForChild("PlayerGui")
+
+-- Main GUI Container
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.Name = "ValPrivateSS"
+ScreenGui.Parent = PlayerGui
+ScreenGui.ResetOnSpawn = false
+
+-- Main Frame
+local MainFrame = Instance.new("Frame")
+MainFrame.Name = "Main"
+MainFrame.Size = UDim2.new(0, 500, 0, 300)
+MainFrame.Position = UDim2.new(0.5, -250, 0.5, -150)
+MainFrame.BackgroundColor3 = Color3.fromRGB(15, 15, 15) -- Deep Black
+MainFrame.BorderSizePixel = 0
+MainFrame.Parent = ScreenGui
+
+-- Rounded Corners
+local UICorner = Instance.new("UICorner")
+UICorner.CornerRadius = UDim.new(0, 8)
+UICorner.Parent = MainFrame
+
+-- Logo / Title
+local Title = Instance.new("TextLabel")
+Title.Name = "Logo"
+Title.Size = UDim2.new(1, 0, 0, 40)
+Title.BackgroundTransparency = 1
+Title.Text = "VAL — PRIVATE SS"
+Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+Title.Font = Enum.Font.Code
+Title.TextSize = 18
+Title.TextXAlignment = Enum.TextXAlignment.Left
+Title.Parent = MainFrame
+
+-- Padding for the Title
+local TitlePadding = Instance.new("UIPadding")
+TitlePadding.PaddingLeft = UDim.new(0, 15)
+TitlePadding.Parent = Title
+
+-- Editor (TextBox)
+local Editor = Instance.new("TextBox")
+Editor.Name = "Editor"
+Editor.Size = UDim2.new(0.94, 0, 0.6, 0)
+Editor.Position = UDim2.new(0.03, 0, 0.15, 0)
+Editor.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+Editor.TextColor3 = Color3.fromRGB(200, 200, 200)
+Editor.ClearTextOnFocus = false
+Editor.MultiLine = true
+Editor.Text = "-- Welcome to Val\nprint(\"Hello Server\")"
+Editor.Font = Enum.Font.Code
+Editor.TextSize = 14
+Editor.TextXAlignment = Enum.TextXAlignment.Left
+Editor.TextYAlignment = Enum.TextYAlignment.Top
+Editor.Parent = MainFrame
+
+local EditorCorner = Instance.new("UICorner")
+EditorCorner.CornerRadius = UDim.new(0, 4)
+EditorCorner.Parent = Editor
+
+-- Execute Button
+local ExecuteBtn = Instance.new("TextButton")
+ExecuteBtn.Name = "Execute"
+ExecuteBtn.Size = UDim2.new(0.45, 0, 0.15, 0)
+ExecuteBtn.Position = UDim2.new(0.03, 0, 0.8, 0)
+ExecuteBtn.BackgroundColor3 = Color3.fromRGB(255, 255, 255) -- White
+ExecuteBtn.TextColor3 = Color3.fromRGB(0, 0, 0) -- Black text
+ExecuteBtn.Text = "EXECUTE"
+ExecuteBtn.Font = Enum.Font.SourceSansBold
+ExecuteBtn.TextSize = 16
+ExecuteBtn.AutoButtonColor = true
+ExecuteBtn.Parent = MainFrame
+
+Instance.new("UICorner").Parent = ExecuteBtn
+
+-- Clear Button
+local ClearBtn = Instance.new("TextButton")
+ClearBtn.Name = "Clear"
+ClearBtn.Size = UDim2.new(0.45, 0, 0.15, 0)
+ClearBtn.Position = UDim2.new(0.52, 0, 0.8, 0)
+ClearBtn.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+ClearBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+ClearBtn.Text = "CLEAR"
+ClearBtn.Font = Enum.Font.SourceSansBold
+ClearBtn.TextSize = 16
+ClearBtn.Parent = MainFrame
+
+Instance.new("UICorner").Parent = ClearBtn
+
+-- Logic
+local Remote = game.ReplicatedStorage:WaitForChild("ValRemote_v1")
+
+ExecuteBtn.MouseButton1Click:Connect(function()
+    Remote:FireServer(Editor.Text)
+end)
+
+ClearBtn.MouseButton1Click:Connect(function()
+    Editor.Text = ""
+end)
