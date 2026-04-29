@@ -1,1 +1,16 @@
 
+# Python artifacts
+__pycache__/
+*.py[cod]
+
+# Val - Private SS specific ignores
+*.bin
+*.dmp
+offsets.txt
+
+# Environment and Secret files
+.env
+.flaskenv
+
+# Log files
+*.log
